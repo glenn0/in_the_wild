@@ -1,0 +1,34 @@
+%h1
+  Admin
+  %small Home
+.row
+  .col-sm-4
+    %h3 Menu
+    %h4
+      = link_to "Users", admin_users_path
+      %small
+        \- #{"#{@count} users"}
+    %hr/
+  .col-sm-4
+    %h3 Last Sign Ups
+    %ul.list-unstyled
+      - @last_signups.each do |user|
+        %li.list-padded-bottom
+          = link_to user.username, edit_admin_user_path(user)
+          %br/
+          %small
+            = time_ago_in_words(user.created_at)
+            ago
+  .col-sm-4
+    %h3 Last Sign Ins
+    %ul.list-unstyled
+      - @last_signins.each do |user|
+        %li.list-padded-bottom
+          = link_to user.username, edit_admin_user_path(user)
+          %br/
+          %small
+            - unless user.last_sign_in_at.nil?
+              = time_ago_in_words(user.last_sign_in_at)
+              ago
+            - else
+              never

@@ -1,0 +1,37 @@
+.row
+  .col-sm-6
+    %h1
+      Edit User
+      %small= "#{@user.username.capitalize} - id: #{@user.id}"
+    %p= link_to "Back to Users", admin_users_path
+    = form_for [:admin, @user], :html => { :role => "form" } do |f|
+      .form-group
+        = f.label :username
+        .row
+          .col-sm-6
+            = f.text_field :username, :autofocus => true, class: "form-control"
+      .form-group
+        = f.label :email
+        .row
+          .col-sm-6
+            = f.email_field :email, class: "form-control"
+      .form-group
+        = f.label :password
+        .row
+          .col-sm-6
+            = f.password_field :password, class: "form-control"
+      .form-group
+        = f.label :password_confirmation
+        .row
+          .col-sm-6
+            = f.password_field :password_confirmation, class: "form-control"
+      - unless current_user.id == @user.id
+        .checkbox
+          = f.check_box :locked
+          = f.label :locked, "Is Locked?"
+        .checkbox
+          = f.check_box :admin
+          = f.label :admin, "Is Admin?"
+      .row
+        .col-sm-6
+          = f.submit "Update User", class: "btn btn-danger"

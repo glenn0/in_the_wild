@@ -1,0 +1,12 @@
+%p
+  Welcome #{@user.username.capitalize}!
+%p You need to confirm your account email through the link below:
+%p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token)
+%br/
+%p
+  Thanks,
+  %br/
+  %br/
+  Glenn
+  %br/
+  = link_to "Your URL", "#"

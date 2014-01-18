@@ -1,0 +1,42 @@
+%h1
+  Users
+  %small Admin
+%p= link_to "Back to Admin", admin_root_path
+.text-center
+  %p= page_entries_info @users
+  = paginate @users
+= form_tag admin_users_path, method: 'get', html: {role: "form"} do
+  %p
+    = text_field_tag :search, params[:search]
+    = submit_tag "Search", :name => nil, class: "btn btn-sm btn-primary"
+    = link_to "All", admin_users_path, {class: "btn btn-sm btn-link"}
+%table.table.table-striped
+  %tr
+    %th User ID
+    %th Username
+    %th Admin
+    %th Locked
+    %th Email
+    %th Sign In Count
+    %th Created At
+    %th Last Sign In
+    %th Last Sign In IP
+  - @users.each do |user|
+    %tr
+      %td= user.id
+      %td= link_to user.username.capitalize, admin_user_path(user)
+      %td= user.admin? ? "<b>yes</b>".html_safe : "no"
+      %td= user.locked? ? "<b>yes</b>".html_safe : "no"
+      %td= user.email
+      %td= user.sign_in_count
+      %td= time_ago_in_words(user.created_at)
+      - unless user.last_sign_in_at.nil?
+        %td
+          = time_ago_in_words(user.last_sign_in_at)
+          ago
+      - else
+        %td never
+      %td= user.last_sign_in_ip
+.text-center
+  %p= page_entries_info @users
+  = paginate @users
