@@ -29,6 +29,7 @@ group :development, :test do
   #gem 'sqlite3', '1.3.8'     # uncomment for SQLite 
   gem 'fabrication', '2.9.6'
   gem 'faker', '1.2.0'
+  gem 'pry'
 end
 
 group :test do
