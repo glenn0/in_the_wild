@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 
   def home
     @project = Project.new
-    @curren
+    @all_projects = Project.all
   end
   
   def inside

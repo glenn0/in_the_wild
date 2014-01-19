@@ -11,3 +11,16 @@
     %br
   %fieldset.action
     %input(type="submit" value="Submit Project" class="btn")
+%br
+%table.table.table-striped.table-bordered
+  %tr
+    %th URL
+    %th User
+    %th When
+  - @all_projects.reverse.each do |p|
+    %tr
+      %td= p.url
+      %td
+        - p.users.each do |u|
+          = u.username
+      %td= time_ago_in_words(p.created_at) + " ago"
