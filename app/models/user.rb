@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :submissions
   has_many :projects, through: :submissions
+  
   # Use friendly_id on Users
   extend FriendlyId
   friendly_id :friendify, use: :slugged
@@ -56,4 +57,5 @@ class User < ActiveRecord::Base
   def self.users_count
     where("admin = ? AND locked = ?",false,false).count
   end
+
 end

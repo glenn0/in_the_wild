@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
   def create
-    project = Project.new(project_params)
-    if project.save
+    @user = current_user
+    @project = @user.projects.create(project_params)
+    if @project.save
       flash[:notice] = "Thanks for submitting!"
       redirect_to home_path
     else
@@ -12,6 +13,6 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:url, :user_id)
+    params.require(:project).permit(:url)
   end
 end
