@@ -1,4 +1,13 @@
 - title("RSpec in the Wild")
-%h1
-  RSpec in the Wild
-%p Find real world RSpec examples.
+.jumbotron
+  %h1
+    RSpec in the Wild
+  %p Find real world RSpec examples.
+= bootstrap_form_for @project, html: { class: "form-horizontal" } do |f|
+  %header
+    %h3 Submit a GitHub project with RSpec
+  %fieldset
+    = f.text_field :url, label: "Project URL"
+    %br
+  %fieldset.action
+    %input(type="submit" value="Submit Project" class="btn")

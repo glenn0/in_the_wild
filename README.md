@@ -6,4 +6,4 @@ The initial focus is on RSpec.
 
 ### Configuration
 
-The project is setup to use Postgres in all environment contexts. If you'd prefer to use SQLite, the gem and database.yml config is included, but commented out.
+The project is setup to use Postgres in all environment contexts. If you'd prefer to use SQLite, the gem and database.yml config are included, but commented out.
