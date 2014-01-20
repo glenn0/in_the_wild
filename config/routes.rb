@@ -10,5 +10,8 @@ InTheWild::Application.routes.draw do
     root "base#index"
     resources :users
   end
+
+  resources :pages, only: [:new]
+  resources :projects, only: [:create]
   
 end

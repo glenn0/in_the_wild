@@ -14,18 +14,29 @@ gem 'friendly_id', '5.0.2'
 gem 'font-awesome-sass', '4.0.2'
 gem 'devise', '3.2.2'
 gem 'bootstrap-sass', '3.0.3.0'
-gem 'pg', '0.17.1'     # remove for SQLite dev
+gem 'pg', '0.17.1'     # remove for SQLite in dev
+gem 'bootstrap_forms', '4.0.1'
+gem 'octokit', '2.7.0'
 
 group :doc do
   gem 'sdoc', require: false
 end
 
-# development-specific gems
+# development/test-specific gems
 group :development, :test do
   gem 'figaro', '0.7.0'     # env variables
-  gem 'rspec-rails', '2.14.1'
   gem 'rails_layout', '0.5.11'
-  #gem 'sqlite3', '1.3.8'     # uncomment for SQLite dev
+  #gem 'sqlite3', '1.3.8'     # uncomment for SQLite 
+  gem 'fabrication', '2.9.6'
+  gem 'faker', '1.2.0'
+  gem 'pry'
+end
+
+group :test do
+  gem 'shoulda-matchers', '2.5.0'
+  gem 'capybara', '2.2.1'
+  gem 'capybara-email', '2.2.1'
+  gem 'rspec-rails', '2.14.1'
 end
 
 # production-specific gems
