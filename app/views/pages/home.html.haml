@@ -7,19 +7,21 @@
   %header
     %h3 Submit a GitHub project with RSpec
   %fieldset
-    = f.text_field :url, label: "Project URL"
+    = f.text_field :url, label: "GitHub Project URL", placeholder: "eg. https://github.com/rspec/rspec"
     %br
   %fieldset.action
     %input(type="submit" value="Submit Project" class="btn")
 %br
 %table.table.table-striped.table-bordered
   %tr
-    %th URL
-    %th User
+    %th Project Owner
+    %th Project Name
+    %th Submitted By
     %th When
   - @all_projects.reverse.each do |p|
     %tr
-      %td= p.url
+      %td= link_to p.repo_owner, p.repo_owner_url
+      %td= link_to p.repo_name, p.repo_url
       %td
         - p.users.each do |u|
           = u.username
