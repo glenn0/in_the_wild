@@ -15,7 +15,7 @@ gem 'font-awesome-sass', '4.0.2'
 gem 'devise', '3.2.2'
 gem 'bootstrap-sass', '3.0.3.0'
 gem 'pg', '0.17.1'     # remove for SQLite in dev
-gem 'bootstrap_forms', '4.0.1'
+gem 'bootstrap_form', '2.0.1'
 gem 'octokit', '2.7.0'
 
 group :doc do

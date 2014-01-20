@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
       fetch_repo_owner_and_name
       if valid_repo?
         @user = current_user
+        get_attitional_repo_attributes
         @project = @user.projects.create(project_params)
         if @project.save
           flash[:notice] = "Thanks for contributing!"
@@ -27,7 +28,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:url, :repo_owner, :repo_name, :repo_owner_url, :repo_url)
+    params.require(:project).permit(:url, :repo_owner, :repo_name, :repo_owner_url, :repo_url, :repo_owner_avatar, :repo_description)
   end
 
   def github_up?
@@ -48,5 +49,14 @@ class ProjectsController < ApplicationController
 
   def valid_repo?
     Octokit.repository?("#{@repo_meta[:repo_owner]}/#{@repo_meta[:repo_name]}")
+  end
+
+  def get_attitional_repo_attributes
+    response = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{@repo_meta[:repo_owner]}/#{@repo_meta[:repo_name]}"))
+    json = ActiveSupport::JSON.decode(response.body) 
+    additional_repo_attributes = {
+      repo_owner_avatar: json["owner"]["gravatar_id"],
+      repo_description: json["description"] }
+    params[:project].merge!(additional_repo_attributes)
   end
 end

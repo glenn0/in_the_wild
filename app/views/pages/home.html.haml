@@ -1,28 +1,41 @@
 - title("RSpec in the Wild")
 .jumbotron
-  %h1
+  %h1.center
     RSpec in the Wild
-  %p Find real world RSpec examples.
-= bootstrap_form_for @project, html: { class: "form-horizontal" } do |f|
-  %header
-    %h3 Submit a GitHub project with RSpec
-  %fieldset
-    = f.text_field :url, label: "GitHub Project URL", placeholder: "eg. https://github.com/rspec/rspec"
-    %br
-  %fieldset.action
-    %input(type="submit" value="Submit Project" class="btn")
+  %p Share real world RSpec examples. Learn from the pros!
+  = bootstrap_form_for @project, style: :inline do |f|
+    = f.text_field :url, hide_label: true, placeholder: "eg. https://github.com/rspec/rspec"
+    = f.submit "Add GitHub Repo!"
+
+-#
+    %fieldset
+      = f.text_field :url, hide_label: true, placeholder: "eg. https://github.com/rspec/rspec"
+    %fieldset.actions.control-group
+      %input(type="submit" value="Submit Project" class="btn")
+
+    .input-group
+      %input.form-control{:type => "text"}
+        %span.input-group-btn
+          %button.btn.btn-default{:type => "submit"} Add GitHub Repo!
 %br
-%table.table.table-striped.table-bordered
-  %tr
-    %th Project Owner
-    %th Project Name
-    %th Submitted By
-    %th When
-  - @all_projects.reverse.each do |p|
-    %tr
-      %td= link_to p.repo_owner, p.repo_owner_url
-      %td= link_to p.repo_name, p.repo_url
-      %td
-        - p.users.each do |u|
-          = u.username
-      %td= time_ago_in_words(p.created_at) + " ago"
+
+- @all_projects.reverse.each do |p|
+  .well 
+    .row
+      .col-md-10
+        .panel.panel-default
+          .panel-heading
+            %h2.panel-title
+              = link_to p.repo_name, p.repo_url
+          .panel-body
+            = p.repo_description
+            .pull-right
+              Submitted by
+              - p.users.each do |u|
+                = u.username
+              = time_ago_in_words(p.created_at) + " ago"
+      .col-md-2
+        %a.pull-right{:href => "#{p.repo_owner_url}"}
+          =image_tag "https://gravatar.com/avatar/#{p.repo_owner_avatar}?s=120"
+          .pull-right
+            = link_to p.repo_owner, p.repo_owner_url
