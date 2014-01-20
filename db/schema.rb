@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119101509) do
+ActiveRecord::Schema.define(version: 20140120130706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20140119101509) do
     t.string   "repo_name"
     t.string   "repo_url"
     t.string   "repo_owner_url"
+    t.string   "repo_owner_avatar"
+    t.text     "repo_description"
   end
 
   create_table "submissions", force: true do |t|
