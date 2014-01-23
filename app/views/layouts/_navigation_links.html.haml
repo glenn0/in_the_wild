@@ -1,6 +1,7 @@
 - if !user_signed_in?
   %li= link_to "Sign in", new_user_session_path
   %li= link_to "Sign up", new_user_registration_path
+  %li= link_to "GitHub Login", user_omniauth_authorize_path(:github)
 - else
   %li= link_to "Edit your account", edit_user_registration_path
   - if current_user.admin?

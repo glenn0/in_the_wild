@@ -15,16 +15,17 @@
         .row
           .col-sm-6
             = f.email_field :email, class: "form-control"
-      .form-group
-        .row
-          .col-sm-6
-            = f.label :password
-            = f.password_field :password, class: "form-control"
-      .form-group
-        .row
-          .col-sm-6
-            = f.label :password_confirmation
-            = f.password_field :password_confirmation, class: "form-control"
+      - if f.object.password_required?
+        .form-group
+          .row
+            .col-sm-6
+              = f.label :password
+              = f.password_field :password, class: "form-control"
+        .form-group
+          .row
+            .col-sm-6
+              = f.label :password_confirmation
+              = f.password_field :password_confirmation, class: "form-control"
       .row
         .col-sm-6
           = f.submit "Sign up", class: "btn btn-primary"
