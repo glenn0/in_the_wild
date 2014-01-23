@@ -6,8 +6,9 @@ class ProjectsController < ApplicationController
       fetch_repo_owner_and_name
       if valid_repo?
         @user = current_user
-        get_attitional_repo_attributes
+        get_additional_repo_attributes
         @project = @user.projects.create(project_params)
+        generate_rspec_tags
         if @project.save
           flash[:notice] = "Thanks for contributing!"
           redirect_to home_path
@@ -51,12 +52,23 @@ class ProjectsController < ApplicationController
     Octokit.repository?("#{@repo_meta[:repo_owner]}/#{@repo_meta[:repo_name]}")
   end
 
-  def get_attitional_repo_attributes
+  def get_additional_repo_attributes
     response = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{@repo_meta[:repo_owner]}/#{@repo_meta[:repo_name]}"))
     json = ActiveSupport::JSON.decode(response.body) 
     additional_repo_attributes = {
       repo_owner_avatar: json["owner"]["gravatar_id"],
       repo_description: json["description"] }
     params[:project].merge!(additional_repo_attributes)
+  end
+
+  def generate_rspec_tags
+    response = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{@repo_meta[:repo_owner]}/#{@repo_meta[:repo_name]}/contents/spec"))
+    json = ActiveSupport::JSON.decode(response.body)
+    json.each do |item|
+      if item["type"] == "dir"
+        dir_name = item["name"]
+        @project.tags << Tag.where(name: dir_name).first_or_create
+      end
+    end
   end
 end
