@@ -3,7 +3,7 @@ InTheWild::Application.routes.draw do
   get "home", to: "pages#home", as: "home"
   
     
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
   
   namespace :admin do
     root "base#index"

@@ -17,9 +17,15 @@ gem 'bootstrap-sass', '3.0.3.0'
 gem 'pg', '0.17.1'     # remove for SQLite in dev
 gem 'bootstrap_form', '2.0.1'
 gem 'octokit', '2.7.0'
+gem 'omniauth-github', '1.1.1'
 
 group :doc do
   gem 'sdoc', require: false
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'meta_request'
 end
 
 # development/test-specific gems

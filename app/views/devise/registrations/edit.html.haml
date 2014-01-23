@@ -27,13 +27,14 @@
         .row
           .col-sm-6
             = f.password_field :password_confirmation, class: "form-control"
-      .form-group
-        = f.label :current_password
-        %i
-          %small (we need your current password to confirm your changes)
-        .row
-          .col-sm-6
-            = f.password_field :current_password, class: "form-control"
+      - if f.object.encrypted_password.present?
+        .form-group
+          = f.label :current_password
+          %i
+            %small (we need your current password to confirm your changes)
+          .row
+            .col-sm-6
+              = f.password_field :current_password, class: "form-control"
       .row
         .col-sm-6
           = f.submit "Update", class: "btn btn-primary"
