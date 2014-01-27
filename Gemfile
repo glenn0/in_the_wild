@@ -26,6 +26,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'meta_request'
+  gem 'binding_of_caller'
 end
 
 # development/test-specific gems

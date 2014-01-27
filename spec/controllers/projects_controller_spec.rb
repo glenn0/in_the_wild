@@ -92,9 +92,5 @@ describe ProjectsController do
         expect(flash[:alert]).to be_present
       end
     end
-    context "GitHub is up" do
-    end
-    context "GitHub is down" do
-    end
   end
 end
