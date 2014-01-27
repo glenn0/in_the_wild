@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectsController do
   describe "#github_up?" do
-    it "retrieves GitHub's availabilty status" do
+    it "returns true when GitHub is available" do
       user = Fabricate(:user)
       project = Fabricate(:project)
       fetcher = Github::RepoFetcher.new(project, user)
@@ -10,47 +10,41 @@ describe ProjectsController do
     end
   end
   describe "#fetch_repo_owner_and_name" do
-    it "retrieves repo owner name" do
+    let(:run_this_method_with_objects) do
       user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild")
-      fetcher = Github::RepoFetcher.new(project, user)
+      @project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild")
+      fetcher = Github::RepoFetcher.new(@project, user)
       fetcher.fetch_repo_owner_and_name
-      expect(project.repo_owner).to eq("glenn0")
+    end
+    it "retrieves repo owner name" do
+      run_this_method_with_objects
+      expect(@project.repo_owner).to eq("glenn0")
     end
     it "retrieves repo name" do
-      user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild")
-      fetcher = Github::RepoFetcher.new(project, user)
-      fetcher.fetch_repo_owner_and_name
-      expect(project.repo_name).to eq("in_the_wild")
+      run_this_method_with_objects
+      expect(@project.repo_name).to eq("in_the_wild")
     end
     it "creates repo owner url attribute" do
-      user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild")
-      fetcher = Github::RepoFetcher.new(project, user)
-      fetcher.fetch_repo_owner_and_name
-      expect(project.repo_owner_url).to eq("https://github.com/glenn0")      
+      run_this_method_with_objects
+      expect(@project.repo_owner_url).to eq("https://github.com/glenn0")      
     end
     it "creates repo url attribute" do
-      user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild")
-      fetcher = Github::RepoFetcher.new(project, user)
-      fetcher.fetch_repo_owner_and_name
-      expect(project.repo_url).to eq("https://github.com/glenn0/in_the_wild")
+      run_this_method_with_objects
+      expect(@project.repo_url).to eq("https://github.com/glenn0/in_the_wild")
     end
   end
   describe "#valid_repo?" do
     it "returns true if a valid GitHub repository" do
       user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild", repo_owner: "glenn0", repo_name: "in_the_wild")
-      fetcher = Github::RepoFetcher.new(project, user)
-      expect(fetcher.valid_repo?).to be_true
+      @project = Fabricate(:project, url: "https://github.com/glenn0/in_the_wild", repo_owner: "glenn0", repo_name: "in_the_wild")
+      @fetcher = Github::RepoFetcher.new(@project, user)
+      expect(@fetcher.valid_repo?).to be_true
     end
     it "returns false if not a valid GitHub repository" do
       user = Fabricate(:user)
-      project = Fabricate(:project, url: "https://github.com/glenn0/not_a_repo", repo_owner: "glenn0", repo_name: "not_a_repo")
-      fetcher = Github::RepoFetcher.new(project, user)
-      expect(fetcher.valid_repo?).to be_false
+      @project = Fabricate(:project, url: "https://github.com/glenn0/not_a_repo", repo_owner: "glenn0", repo_name: "not_a_repo")
+      @fetcher = Github::RepoFetcher.new(@project, user)
+      expect(@fetcher.valid_repo?).to be_false
     end
   end
   describe "#get_additional_repo_attributes" do
