@@ -27,9 +27,7 @@ module Github
     end
 
     def github_up?
-      response = Net::HTTP.get_response(URI.parse("https://status.github.com/api/status.json"))
-      json = ActiveSupport::JSON.decode(response.body)
-      json["status"] == "good"
+      Octokit.github_status.status == "good"
     end
 
     def fetch_repo_owner_and_name
@@ -45,22 +43,19 @@ module Github
     end
 
     def get_additional_repo_attributes
-      response = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{@project.repo_owner}/#{@project.repo_name}"))
-      json = ActiveSupport::JSON.decode(response.body)
-      @project.repo_owner_avatar = json["owner"]["gravatar_id"]
-      @project.repo_description = json["description"]
+      repo = Octokit.repository("#{@project.repo_owner}/#{@project.repo_name}")
+      @project.repo_owner_avatar = repo.owner.gravatar_id
+      @project.repo_description = repo.description
     end
 
     def generate_rspec_tags
-      response = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{@project.repo_owner}/#{@project.repo_name}/contents/spec"))
-      json = ActiveSupport::JSON.decode(response.body)
-      json.each do |item|
-        if item["type"] == "dir"
-          dir_name = item["name"]
+      spec_contents = Octokit.contents("#{@project.repo_owner}/#{@project.repo_name}", path: 'spec')
+      spec_contents.each do |i|
+        if i.type == "dir"
+          dir_name = i.name
           @project.tags << Tag.where(name: dir_name).first_or_create
         end
       end
     end
-
   end
 end
