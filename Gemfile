@@ -18,6 +18,7 @@ gem 'pg', '0.17.1'     # remove for SQLite in dev
 gem 'bootstrap_form', '2.0.1'
 gem 'octokit', '2.7.0'
 gem 'omniauth-github', '1.1.1'
+gem 'acts_as_votable', '0.8.0'
 
 group :doc do
   gem 'sdoc', require: false

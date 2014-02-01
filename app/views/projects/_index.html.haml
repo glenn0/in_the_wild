@@ -1,0 +1,28 @@
+- @projects.each do |p|
+  .well 
+    .row
+      .col-md-10
+        .panel.panel-default
+          .panel-heading
+            %h2.panel-title
+              = link_to p.repo_name, p.repo_url
+          .panel-body
+            = p.repo_description
+            %br
+            %br
+            - if p.tags.count > 0
+              It tests with: 
+              - p.tags.each do |t|
+                %span.label.label-default= link_to t.name, "#{p.repo_url}/tree/master/spec/#{t.name}"
+            .pull-right
+              Submitted by
+              - p.users.each do |u|
+                = u.username
+              = time_ago_in_words(p.created_at) + " ago"
+      .col-md-2
+        %a.pull-right{:href => "#{p.repo_owner_url}"}
+          =image_tag "https://gravatar.com/avatar/#{p.repo_owner_avatar}?s=120"
+          .pull-right
+            = link_to p.repo_owner, p.repo_owner_url
+
+.pull-right= paginate @projects
