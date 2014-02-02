@@ -11,6 +11,5 @@ InTheWild::Application.routes.draw do
   end
 
   resources :pages, only: [:new]
-  resources :projects, only: [:index, :create]
-  
+  resources :projects, only: [:create]
 end

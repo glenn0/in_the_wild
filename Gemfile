@@ -18,7 +18,6 @@ gem 'pg', '0.17.1'     # remove for SQLite in dev
 gem 'bootstrap_form', '2.0.1'
 gem 'octokit', '2.7.0'
 gem 'omniauth-github', '1.1.1'
-gem 'acts_as_votable', '0.8.0'
 
 group :doc do
   gem 'sdoc', require: false
@@ -30,9 +29,8 @@ group :development do
   gem 'binding_of_caller'
 end
 
-# development/test-specific gems
 group :development, :test do
-  gem 'figaro', '0.7.0'     # env variables
+  gem 'figaro', '0.7.0'
   gem 'rails_layout', '0.5.11'
   #gem 'sqlite3', '1.3.8'     # uncomment for SQLite 
   gem 'fabrication', '2.9.6'
@@ -47,7 +45,6 @@ group :test do
   gem 'rspec-rails', '2.14.1'
 end
 
-# production-specific gems
 group :production do
   gem 'rails_12factor'
   #gem 'pg'     # uncomment for SQLite dev
