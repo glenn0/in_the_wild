@@ -14,17 +14,27 @@ class ProjectsController < ApplicationController
   end
 
   def vote
-    @project = Project.find(params[:id])
-    Vote.create(voteable: @project, creator: current_user, vote: params[:vote])
-    flash[:notice] = "Thanks for voting."
+    find_project_and_vote
+    if @vote.present?
+      @vote.update_attributes(vote: true)
+      flash[:notice] = "You re-starred #{@project.repo_name}!"
+    else
+      new_vote = Vote.create(voteable: @project, creator: current_user, vote: true)
+      if new_vote.valid?
+        flash[:notice] = "You starred #{@project.repo_name}!"
+      else
+        flash[:error] = "Looks like you've already starred this one."
+      end
+    end
     redirect_to home_path
   end
 
   def unvote
-    @project = Project.find(params[:id])
-    @vote = Vote.where(voteable: @project, creator: current_user, vote: true).first
-    @vote.update_attributes(vote: false)
-    flash[:notice] = "Your vote has been removed."
+    find_project_and_vote
+    if @vote.present?
+      @vote.update_attributes(vote: false)
+      flash[:warning] = "Your star for #{@project.repo_name} has been removed."
+    end
     redirect_to home_path
   end
 
@@ -32,5 +42,10 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:url)
+  end
+
+  def find_project_and_vote
+    @project = Project.find(params[:id])
+    @vote = Vote.where(voteable: @project, creator: current_user).first
   end
 end

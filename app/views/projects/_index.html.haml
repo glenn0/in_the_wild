@@ -12,7 +12,7 @@
                     = link_to unvote_project_path(p), method: 'post' do
                       .glyphicon.glyphicon-star{:style => "font-size:1.2em;"}
                   - else
-                    = link_to vote_project_path(p, vote: true), method: 'post' do
+                    = link_to vote_project_path(p), method: 'post' do
                       .glyphicon.glyphicon-star-empty{:style => "font-size:1.2em;"}
                 (#{tv = p.total_votes} #{tv == 1 ? "star" : "stars"})
           .panel-body
