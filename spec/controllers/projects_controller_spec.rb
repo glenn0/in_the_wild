@@ -115,5 +115,32 @@ describe ProjectsController do
     end
   end
   describe "POST unvote" do
+    context "with authenticated user" do
+      it "redirects to home path" do
+        user = Fabricate(:user)
+        sign_in user
+        project = Fabricate(:project)
+        project.votes.create!(voteable: project, creator: user, vote: true)
+        post :unvote, id: project.id
+        expect(response).to redirect_to home_path
+      end
+      it "invalidates a vote" do
+        user = Fabricate(:user)
+        sign_in user
+        project = Fabricate(:project)
+        vote = project.votes.create!(voteable: project, creator: user, vote: true)
+        post :unvote, id: project.id
+        vote.reload
+        expect(vote.vote).to be_false
+      end
+      it "sets the flash success message" do
+        user = Fabricate(:user)
+        sign_in user
+        project = Fabricate(:project)
+        project.votes.create!(voteable: project, creator: user, vote: true)
+        post :unvote, id: project.id
+        expect(flash[:notice]).to be_present
+      end
+    end
   end
 end
