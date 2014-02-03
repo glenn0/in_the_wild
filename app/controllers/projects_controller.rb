@@ -13,6 +13,21 @@ class ProjectsController < ApplicationController
     redirect_to home_path
   end
 
+  def vote
+    @project = Project.find(params[:id])
+    Vote.create(voteable: @project, creator: current_user, vote: params[:vote])
+    flash[:notice] = "Thanks for voting."
+    redirect_to home_path
+  end
+
+  def unvote
+    @project = Project.find(params[:id])
+    @vote = Vote.where(voteable: @project, creator: current_user, vote: true).first
+    @vote.update_attributes(vote: false)
+    flash[:notice] = "Your vote has been removed."
+    redirect_to home_path
+  end
+
   private
 
   def project_params

@@ -12,4 +12,8 @@ class Project < ActiveRecord::Base
   #validates_presence_of :repo_name
 
   validates_format_of :url, with: /(http|https)\:\/\/(github.com)\/.*\/.*/
+
+  def total_votes
+    self.votes.where(vote: true).size
+  end
 end
