@@ -6,9 +6,10 @@ describe PagesController do
       get :home
       expect(assigns(:project)).to be_a_new Project
     end
-    it "sets @all_projects" do
+    it "sets @projects" do
+      50.times { Fabricate(:project) }
       get :home
-      expect(assigns(:all_projects)).to eq(Project.all)
+      expect(assigns(:projects).length).to eq(25)
     end
   end
 end

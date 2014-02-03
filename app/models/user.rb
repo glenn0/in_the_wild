@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :submissions
   has_many :projects, through: :submissions
+  has_many :votes
   
   # Use friendly_id on Users
   extend FriendlyId

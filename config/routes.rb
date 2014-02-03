@@ -2,7 +2,6 @@ InTheWild::Application.routes.draw do
   root "pages#home"    
   get "home", to: "pages#home", as: "home"
   
-    
   devise_for :users, controllers: {omniauth_callbacks: "omniauth_callbacks"}
   
   namespace :admin do
@@ -11,6 +10,10 @@ InTheWild::Application.routes.draw do
   end
 
   resources :pages, only: [:new]
-  resources :projects, only: [:create]
-  
+  resources :projects, only: [:create] do
+    member do
+      post 'vote'
+      post 'unvote'
+    end
+  end
 end

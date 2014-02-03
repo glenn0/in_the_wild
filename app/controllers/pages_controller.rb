@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   def home
     @project = Project.new
-    @all_projects = Project.all
+    @projects = Project.order("created_at desc").page(params[:page])
   end
     
 end
