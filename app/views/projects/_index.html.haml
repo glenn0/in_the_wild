@@ -14,7 +14,7 @@
                   - else
                     = link_to vote_project_path(p, vote: true), method: 'post' do
                       .glyphicon.glyphicon-star-empty{:style => "font-size:1.2em;"}
-                (#{p.total_votes})
+                (#{tv = p.total_votes} #{tv == 1 ? "star" : "stars"})
           .panel-body
             = p.repo_description
             %br
