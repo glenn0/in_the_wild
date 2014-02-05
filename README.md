@@ -14,9 +14,9 @@ Spin up the application or try: http://rspecinthewild.herokuapp.com/
 
 Sign in with your GitHub account or create an account using an email address and password.
 
-Find a GitHub repo which includes some good RSpec tests. Post the repo link into the submit box.
+Find a GitHub project which includes some good RSpec tests. Post the repo link into the submit box.
 
-In the Wild will ask the RepoFetcher class to hit the GitHub API and collect the repo name, description, owner details and iterate through the /spec directory to generate tags based on the sub-directories. eg. Controllers, Features, Models might be generated as tags.
+In the Wild will ask the RepoFetcher class to hit the GitHub API and collect the project name, description, owner details and iterate through the /spec directory to generate tags based on the sub-directories. eg. Controllers, Features, Models might be generated as tags. This tagging method isn't perfect, but it gives an indication of the scope of the tests used by each project.
 
 Your submission will be listed on the home page.
 
