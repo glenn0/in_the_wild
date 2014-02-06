@@ -9,13 +9,13 @@
               .pull-right
                 - if current_user
                   - if Vote.where(voteable: p, creator: current_user, vote: true).present?
-                    = link_to vote_project_path(p, vote: false), method: 'post', remote: true do
-                      %span{id: "project_#{p.id}_star"}
-                        = render 'projects/full_star'
+                    %span{id: "project_#{p.id}_star"}
+                      = link_to vote_project_path(p, vote: false), method: 'post', remote: true do
+                        .glyphicon.glyphicon-star{:style => "font-size:1.2em;"}
                   - else
-                    = link_to vote_project_path(p, vote: true), method: 'post', remote: true do
-                      %span{id: "project_#{p.id}_star"}
-                        = render 'projects/half_star'
+                    %span{id: "project_#{p.id}_star"}
+                      = link_to vote_project_path(p, vote: true), method: 'post', remote: true do
+                        .glyphicon.glyphicon-star-empty{:style => "font-size:1.2em;"}
                 (
                 %span{id: "project_#{p.id}_star_count"}
                   #{tv = p.total_votes} #{tv == 1 ? "star" : "stars"}
