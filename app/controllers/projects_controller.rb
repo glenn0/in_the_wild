@@ -16,26 +16,24 @@ class ProjectsController < ApplicationController
   def vote
     find_project_and_vote
     if @vote.present?
-      @vote.update_attributes(vote: true)
-      flash[:notice] = "You re-starred #{@project.repo_name}!"
+      @vote.update_attributes(vote: @value)
     else
-      new_vote = Vote.create(voteable: @project, creator: current_user, vote: true)
-      if new_vote.valid?
-        flash[:notice] = "You starred #{@project.repo_name}!"
-      else
-        flash[:error] = "Looks like you've already starred this one."
-      end
+      @vote = Vote.create(voteable: @project, creator: current_user, vote: true)
     end
-    redirect_to home_path
-  end
 
-  def unvote
-    find_project_and_vote
-    if @vote.present?
-      @vote.update_attributes(vote: false)
-      flash[:warning] = "Your star for #{@project.repo_name} has been removed."
+    respond_to do |format|
+      format.html do
+        if @vote.valid? && @vote.vote == true
+          flash[:notice] = "You just dropped a star on #{@project.repo_name}."
+        elsif @vote.valid? && @vote.vote == false
+          flash[:notice] = "No star for you, #{@project.repo_name}."
+        else
+          flash[:error] = "Um, something's wrong. Tweet me the details @glenn0."
+        end
+        redirect_to :back
+      end
+      format.js
     end
-    redirect_to home_path
   end
 
   private
@@ -47,5 +45,6 @@ class ProjectsController < ApplicationController
   def find_project_and_vote
     @project = Project.find(params[:id])
     @vote = Vote.where(voteable: @project, creator: current_user).first
+    @value = params[:vote]
   end
 end

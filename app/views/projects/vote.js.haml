@@ -1,0 +1,8 @@
+- if @vote.vote == true
+  :plain
+    $("#project_#{@project.id}_star").replaceWith("#{j render 'full_star'}")
+- else
+  :plain
+    $("#project_#{@project.id}_star").replaceWith("#{j render 'half_star'}")
+:plain
+  $("#project_#{@project.id}_star_count").html("#{tv = @project.total_votes} #{tv == 1 ? "star" : "stars"}")

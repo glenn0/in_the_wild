@@ -94,52 +94,44 @@ describe ProjectsController do
     end
   end
   describe "POST vote" do
+    before { @request.env['HTTP_REFERER'] = '/home' }
+    
     context "with authenticated user" do
-      it "redirects to home path" do
-        sign_in Fabricate(:user)
-        project = Fabricate(:project)
-        post :vote, id: project.id, vote: true
-        expect(response).to redirect_to home_path
+      context "vote does not already exist for user/project" do
+        context "with true vote" do
+          it "creates a vote" do
+            sign_in Fabricate(:user)
+            project = Fabricate(:project)
+            expect{post :vote, id: project.id, vote: true}.to change(Vote, :count).by(1)
+          end
+        end
+        context "with false vote" do
+          it "does not create a vote"
+        end
       end
-      it "creates a vote" do
-        sign_in Fabricate(:user)
-        project = Fabricate(:project)
-        expect{post :vote, id: project.id, vote: true}.to change(Vote, :count).by(1)
-      end
-      it "sets the flash success message" do
-        sign_in Fabricate(:user)
-        project = Fabricate(:project)
-        post :vote, id: project.id, vote: true
-        expect(flash[:notice]).to be_present
-      end
-    end
-  end
-  describe "POST unvote" do
-    context "with authenticated user" do
-      it "redirects to home path" do
-        user = Fabricate(:user)
-        sign_in user
-        project = Fabricate(:project)
-        project.votes.create!(voteable: project, creator: user, vote: true)
-        post :unvote, id: project.id
-        expect(response).to redirect_to home_path
-      end
-      it "invalidates a vote" do
-        user = Fabricate(:user)
-        sign_in user
-        project = Fabricate(:project)
-        vote = project.votes.create!(voteable: project, creator: user, vote: true)
-        post :unvote, id: project.id
-        vote.reload
-        expect(vote.vote).to be_false
-      end
-      it "sets the flash success message" do
-        user = Fabricate(:user)
-        sign_in user
-        project = Fabricate(:project)
-        project.votes.create!(voteable: project, creator: user, vote: true)
-        post :unvote, id: project.id
-        expect(flash[:notice]).to be_present
+      context "vote already exists for user/project" do
+        context "with true vote" do
+          it "updates the vote to true" do
+            user = Fabricate(:user)
+            sign_in user
+            project = Fabricate(:project)
+            vote = project.votes.create!(voteable: project, creator: user, vote: false)
+            post :vote, id: project.id, vote: true
+            vote.reload
+            expect(vote.vote).to be_true
+          end
+        end
+        context "with a false vote" do
+          it "updates vote to false" do
+            user = Fabricate(:user)
+            sign_in user
+            project = Fabricate(:project)
+            vote = project.votes.create!(voteable: project, creator: user, vote: true)
+            post :vote, id: project.id, vote: false
+            vote.reload
+            expect(vote.vote).to be_false
+          end
+        end
       end
     end
   end
