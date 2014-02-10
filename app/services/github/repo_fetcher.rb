@@ -22,7 +22,7 @@ module Github
           ServiceResponse.error_with_message("Hmmm... that's not a URL I can understand at the moment.")
         end
       else
-        ServiceResponse.error_with_message("Bother, looks like <a href="https://status.github.com/" class="alert-link"> GitHub is down</a> at the moment")
+        ServiceResponse.error_with_message("Bother, looks like <a href='https://status.github.com/' class='alert-link'> GitHub is down</a> at the moment")
       end
     end
 
