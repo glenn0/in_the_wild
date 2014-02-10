@@ -13,6 +13,8 @@ class Project < ActiveRecord::Base
 
   validates_format_of :url, with: /(http|https)\:\/\/(github.com)\/.*\/.*/
 
+  scope :popular
+
   def total_votes
     self.votes.where(vote: true).size
   end
