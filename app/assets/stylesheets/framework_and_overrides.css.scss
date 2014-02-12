@@ -9,7 +9,7 @@ $brand-danger: #d9534f;
 $brand-info: #5bc0de;
 
 // Body scaffolding
-$body-bg: #ffffff;
+$body-bg: #e3e7e8;
 $text-color: #373737;
 $link-color: $brand-primary;
 $link-hover-color: darken($link-color, 15%);
@@ -61,8 +61,8 @@ $btn-link-disabled-color: #cccccc;
 
 // Buttons: Default
 $btn-default-color: #ffffff;
-$btn-default-bg: #bbbbbb;
-$btn-default-border: #cccccc;
+$btn-default-bg: #4EAD49;
+$btn-default-border: #4EAD49;
 
 // Buttons: Primary
 $btn-primary-color: $btn-default-color;
@@ -128,16 +128,16 @@ $alert-info-border: $state-info-border;
 
 // Navbar: Base styles
 $navbar-height: 50px; 
-$navbar-margin-bottom: 4px; 
+$navbar-margin-bottom: 0px; 
 $navbar-padding-horizontal: 15px; 
 $navbar-padding-vertical: 13px; 
 $navbar-border-radius: 0px;
 
 // Navbar: Default navbar
 // -> Basics
-$navbar-default-color: #777777; 
-$navbar-default-bg: #f8f8f8; 
-$navbar-default-border: darken($navbar-default-bg, 7%); 
+$navbar-default-color: #FFFFFF; 
+$navbar-default-bg: #FFFFFF; 
+$navbar-default-border: darken($navbar-default-bg, 0%); 
 // -> Links
 $navbar-default-link-color: #777777; 
 $navbar-default-link-hover-color: #333333; 
@@ -157,20 +157,20 @@ $navbar-default-toggle-border-color: #dddddd;
 
 // Navbar: Inverted navbar
 // -> Basics
-$navbar-inverse-color: #eeeeee; 
-$navbar-inverse-bg: #222222; 
-$navbar-inverse-border: darken($navbar-inverse-bg, 7%); 
+$navbar-inverse-color: #FFFFFF; 
+$navbar-inverse-bg: #FFFFFF; 
+$navbar-inverse-border: darken($navbar-inverse-bg, 0%); 
 // -> Links
-$navbar-inverse-link-color: #eeeeee; 
-$navbar-inverse-link-hover-color: #ffffff; 
+$navbar-inverse-link-color: #006600; 
+$navbar-inverse-link-hover-color: #00BB00; 
 $navbar-inverse-link-hover-bg: $navbar-inverse-bg; 
-$navbar-inverse-link-active-color: #ffffff; 
+$navbar-inverse-link-active-color: #00BB00; 
 $navbar-inverse-link-active-bg: darken($navbar-inverse-bg, 7%); 
 $navbar-inverse-link-disabled-color: #444444; 
 $navbar-inverse-link-disabled-bg:$navbar-inverse-bg; 
 // -> Brand
 $navbar-inverse-brand-color: $navbar-inverse-link-color; 
-$navbar-inverse-brand-hover-color: #ffffff; 
+$navbar-inverse-brand-hover-color: #00BB00; 
 $navbar-inverse-brand-hover-bg: $navbar-inverse-bg; 
 // -> Toggle
 $navbar-inverse-toggle-hover-bg: #333333; 
@@ -217,7 +217,7 @@ $input-color: $text-color; // Text color for <input>s
 $input-bg: #ffffff; // <input> background color
 $input-border: #cccccc; // <input> border color
 $input-border-radius: $border-radius-base; // <input> border radius
-$input-color-placeholder: #eeeeee; // Placeholder text color
+$input-color-placeholder: #C0C0C0; // Placeholder text color
 // -> Input states
 $input-border-focus: #66afe9; // Border color for inputs on focus
 $input-bg-disabled: #dddddd; // <input disabled> background color
@@ -412,7 +412,8 @@ img{
 // FOOTER
 #footer{
   background-color: $navbar-inverse-bg;
-  color: $navbar-inverse-color;
+  background-image: url(lightpaperfibers.png);
+  color: #000000;
   height: 100px;
   margin-top: -100px;  
   letter-spacing: 1px;
@@ -422,12 +423,22 @@ img{
   }
 }
 //***********************************************************
-.jumbotron {
+.jumbotron{
   margin-bottom: 0px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   background-image: url(wild.jpg);
-  background-position: 0% 25%;
+  background-position: 0% 0%;
   background-size: cover;
   background-repeat: no-repeat;
-  color: white;
-  text-shadow: black 0.3em 0.3em 0.3em;
+  color: #41903d;
+  text-shadow: white 0.0em 0.2em 0.2em;
+}
+
+body{
+  background-image: url(lightpaperfibers.png);
+}
+
+.navbar{
+  background-image: url(lightpaperfibers.png);
 }
