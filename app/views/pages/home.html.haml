@@ -1,9 +1,9 @@
 - title("RSpec in the Wild")
 .jumbotron
-  %h1.center
+  %h1
     RSpec in the Wild
   %p Share real world RSpec examples. Learn from the pros!
-  = bootstrap_form_for @project, style: :inline do |f|
+  = bootstrap_form_for @project do |f|
     = f.text_field :url, hide_label: true, placeholder: "eg. https://github.com/rspec/rspec"
     = f.submit "Add GitHub Repo!"
     
