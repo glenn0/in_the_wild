@@ -282,12 +282,13 @@ $panel-danger-heading-bg: $state-danger-bg;
 // -> Wells
 $well-bg: #f5f5f5;
 
-// Jumbotron
-$jumbotron-padding: 30px; 
+/* Jumbotron
+$jumbotron-padding: 10px; 
 $jumbotron-bg: #cccccc; 
 $jumbotron-font-size: ceil($font-size-base * 1.5); 
 $jumbotron-color: $text-color; 
 $jumbotron-heading-color: $headings-color;
+*/
 
 // Carousel
 $carousel-text-shadow: 0px 1px 2px #373737; 
@@ -305,6 +306,7 @@ $label-success-bg: $brand-success; // Success label background color
 $label-info-bg: $brand-info; // Info label background color
 $label-warning-bg: $brand-warning; // Warning label background color
 $label-danger-bg: $brand-danger; // Danger label background color
+$label-border-radius: $border-radius-base;
 
 // Close button
 $close-font-weight: bold; 
@@ -420,3 +422,12 @@ img{
   }
 }
 //***********************************************************
+.jumbotron {
+  margin-bottom: 0px;
+  background-image: url(wild.jpg);
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: black 0.3em 0.3em 0.3em;
+}
